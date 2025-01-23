@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teeth Analysis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #a8edea, #fed6e3);
+            color: #333;
+        }
+
+        header {
+            background: #004d99;
+            color: #fff;
+            padding: 15px 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-weight: 600;
+            font-size: 2.5rem;
+        }
+
+        nav {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        nav a {
+            margin: 0 15px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 400;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #ffcc00;
+        }
+
+        .container {
+            text-align: center;
+            padding: 50px 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .container h2 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .container p {
+            font-size: 1rem;
+            margin-bottom: 20px;
+            color: #444;
+        }
+
+        .image-placeholder {
+            margin: 20px auto;
+            width: 300px;
+            height: 300px;
+            background: #f8f8f8;
+            border: 2px dashed #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 15px;
+            font-size: 1rem;
+            color: #888;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .image-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .file-upload {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .file-upload button {
+            background: #ffcc00;
+            color: #333;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: transform 0.3s ease, background 0.3s ease;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+        }
+
+        .file-upload button:hover {
+            transform: scale(1.1);
+            background: #004d99;
+            color: #fff;
+        }
+
+        #file-input {
+            display: none;
+        }
+
+        footer {
+            background: #004d99;
+            color: #fff;
+            padding: 15px 0;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        footer p {
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Teeth Analysis</h1>
+        <nav>
+            <a href="/">Home</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h2>Analyze Teeth</h2>
+        <p>Upload an image or capture one using your camera to begin the analysis.</p>
+
+        <div class="image-placeholder" id="image-preview">
+            <span>Image Preview (Captured or Uploaded)</span>
+        </div>
+
+        <div class="file-upload">
+            <button id="capture-button">Capture Image</button>
+            <button id="upload-button">Upload Image</button>
+            <input type="file" id="file-input" accept="image/*">
+        </div>
+
+        <p id="results">Results will be displayed here after analysis.</p>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Nutritional Diagnosis System. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const fileInput = document.getElementById('file-input');
+        const uploadButton = document.getElementById('upload-button');
+        const imagePreview = document.getElementById('image-preview');
+        const captureButton = document.getElementById('capture-button');
+        const results = document.getElementById('results');
+
+        // Handle file upload
+        uploadButton.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        fileInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    imagePreview.innerHTML = `<img src="${e.target.result}" alt="Uploaded Image">`;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Simulate image capture (as browsers don't allow direct camera integration without a backend)
+        captureButton.addEventListener('click', () => {
+            alert('Camera capture functionality will be implemented later.');
+            results.textContent = "No image captured.";
+        });
+    </script>
+</body>
+</html>
