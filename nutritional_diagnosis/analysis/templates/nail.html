@@ -90,35 +90,6 @@
             object-fit: cover;
         }
 
-        .file-upload {
-            margin-top: 20px;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        .file-upload button {
-            background: #ffcc00;
-            color: #333;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 25px;
-            font-weight: 600;
-            transition: transform 0.3s ease, background 0.3s ease;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-            cursor: pointer;
-        }
-
-        .file-upload button:hover {
-            transform: scale(1.1);
-            background: #004d99;
-            color: #fff;
-        }
-
-        #file-input {
-            display: none;
-        }
-
         footer {
             background: #004d99;
             color: #fff;
@@ -147,15 +118,6 @@
         <h2>Analyze Nails</h2>
         <p>Upload an image to begin the analysis.</p>
 
-        <div class="image-placeholder" id="image-preview">
-            <span>Image Preview (Uploaded)</span>
-        </div>
-
-        <div class="file-upload">
-            <button id="upload-button">Upload Image</button>
-            <input type="file" id="file-input" accept="image/*" name="image" style="display: none;">
-        </div>
-
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <input type="file" name="image" accept="image/*">
@@ -163,52 +125,15 @@
         </form>
 
         {% if result %}
-            <h3>Results:</h3>
-            <p>{{ result }}</p>
+            <div class="image-placeholder">
+                <h3>Results:</h3>
+                <p>{{ result }}</p>
+            </div>
         {% endif %}
+    </div>
 
     <footer>
-        <p>&copy; 2025 Nutritional Diagnosis System. All rights reserved.</p>
+        <p>&copy; 2025 Nails Analysis Project. All rights reserved.</p>
     </footer>
-
-    <script>
-        document.getElementById('image-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const formData = new FormData(this);
-            
-            fetch('{% url "nails_page" %}', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.text())
-            .then(html => {
-                // Update page with response
-                document.body.innerHTML = html;
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        });
-        const fileInput = document.getElementById('file-input');
-        const uploadButton = document.getElementById('upload-button');
-        const imagePreview = document.getElementById('image-preview');
-        const results = document.getElementById('results');
-
-        // Handle file upload
-        uploadButton.addEventListener('click', () => {
-            fileInput.click();
-        });
-
-        fileInput.addEventListener('change', (event) => {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    imagePreview.innerHTML = `<img src="${e.target.result}" alt="Uploaded Image">`;
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-    </script>
 </body>
 </html>
